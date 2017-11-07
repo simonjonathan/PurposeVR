@@ -6,5 +6,5 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
-    path: Assets/LookAround.unity
+    path: Assets/Scenes/LookAround.unity
     guid: bdd45f4f273eb954e99d1bf1d46d016a
