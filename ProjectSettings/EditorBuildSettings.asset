@@ -8,3 +8,6 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/LookAround.unity
     guid: bdd45f4f273eb954e99d1bf1d46d016a
+  - enabled: 0
+    path: Assets/Scenes/TestScene.unity
+    guid: e433d37384a4b6043b616adb36a18c5f

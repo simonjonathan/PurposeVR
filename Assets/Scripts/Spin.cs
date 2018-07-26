@@ -4,9 +4,9 @@ using UnityEngine;
 
 public class Spin : MonoBehaviour {
 
+    //NOT IN USE - USED FOR 3D Audio Testing
 	public float speed = 10f;
 
-	
 	// Update is called once per frame
 	void Update () {
 		transform.Rotate (Vector3.up, speed * Time.deltaTime);

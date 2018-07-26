@@ -16,44 +16,58 @@ using UnityEngine;
 
 using System.Collections;
 
+
 [RequireComponent(typeof(Collider))]
 public class GazeToMute : MonoBehaviour {
-  private Vector3 startingPosition;
+    //Timeline Agent Controller
+    private Vector3 startingPosition;
 
-  public Material inactiveMaterial;
-  public Material gazedAtMaterial;
-	public AudioSource audioToMute;	
+    public GameManager gameManager;
 
-  void Start() {
-    startingPosition = transform.localPosition;
-    SetGazedAt(false);
-  }
+    public Vector3 camDirection;
+    public Camera mainCamera;
 
-  public void SetGazedAt(bool gazedAt) {
-    if (inactiveMaterial != null && gazedAtMaterial != null) {
-      GetComponent<Renderer>().material = gazedAt ? gazedAtMaterial : inactiveMaterial;
-      return;
+    public GameObject tutorialDisplay;
+
+    void Start() {
+        startingPosition = transform.localPosition;
+        SetGazedAt(false);
     }
-    GetComponent<Renderer>().material.color = gazedAt ? Color.green : Color.red;
-  }
 
-  public void Reset() {
-    transform.localPosition = startingPosition;
-  }
+    void Update(){
 
-  public void Recenter() {
-#if !UNITY_EDITOR
-    GvrCardboardHelpers.Recenter();
-#else
-    GvrEditorEmulator emulator = FindObjectOfType<GvrEditorEmulator>();
-    if (emulator == null) {
-      return;
     }
+
+    //Setting boolean gazedAt for EventTrigger
+    public void SetGazedAt(bool gazedAt) {
+        return;
+    }
+
+    public void Reset() {
+        transform.localPosition = startingPosition;
+    }
+
+    public void Recenter() {
+    #if !UNITY_EDITOR
+        GvrCardboardHelpers.Recenter();
+    #else
+        GvrEditorEmulator emulator = FindObjectOfType<GvrEditorEmulator>();
+        if (emulator == null) {
+            return;
+        }
     emulator.Recenter();
-#endif  // !UNITY_EDITOR
-  }
+    #endif  // !UNITY_EDITOR
+    }
+    
+    //DefeatAgent for "Tutorial" before Game
+    public void DefeatAgent() {
+        if (tutorialDisplay.activeSelf == true)
+        {
+            camDirection = mainCamera.transform.forward;
+            GetComponent<Rigidbody>().AddForce(camDirection * 200, ForceMode.Impulse);
+            gameManager.defeatedAgents += 1;
+        }
 
-  public void MuteAudio() {
-		audioToMute.mute = !audioToMute.mute;
-  }
+    }
 }
+
